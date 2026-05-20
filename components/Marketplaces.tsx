@@ -1,29 +1,57 @@
-const NAMES = ['Amazon', 'Walmart', 'Shopify', 'eBay', 'Etsy', 'Target', 'Wayfair', 'TikTok Shop']
+const MARKETS = [
+  {
+    flag: '🇩🇪', name: 'Germany', sub: "Europe's largest e-commerce market",
+    stat: '€89B', statLabel: 'annual e-commerce spend',
+    shops: ['Amazon.de', 'Otto', 'Zalando', 'Kaufland', 'eBay.de'],
+  },
+  {
+    flag: '🇺🇸', name: 'United States', sub: 'World\'s biggest marketplace ecosystem',
+    stat: '$1.1T', statLabel: 'annual e-commerce spend',
+    shops: ['Amazon.com', 'Walmart', 'Target Plus', 'Etsy', 'TikTok Shop'],
+  },
+  {
+    flag: '🇦🇪', name: 'UAE', sub: 'High Indian diaspora & premium demand',
+    stat: '6M+', statLabel: 'Indian residents in UAE',
+    shops: ['Noon', 'Amazon.ae', 'Namshi', 'Carrefour UAE'],
+  },
+  {
+    flag: '🇬🇧', name: 'United Kingdom', sub: 'Fast compliance, strong Indian taste',
+    stat: '£138B', statLabel: 'annual e-commerce spend',
+    shops: ['Amazon.co.uk', 'ASOS', 'OnBuy', 'Not On High Street'],
+  },
+]
 
 export default function Marketplaces() {
   return (
-    <div style={{
-      background: 'var(--off-white)',
-      padding: '52px 6vw',
-      textAlign: 'center',
-      borderTop: '1px solid var(--border-light)',
-      borderBottom: '1px solid var(--border-light)',
-    }}>
-      <p style={{
-        fontSize: 11, fontWeight: 600,
-        letterSpacing: '0.10em', textTransform: 'uppercase',
-        color: 'var(--text-dim)', marginBottom: 28,
-      }}>
-        Your products, selling globally on
-      </p>
-      <div style={{
-        display: 'flex', alignItems: 'center',
-        justifyContent: 'center', gap: 40, flexWrap: 'wrap',
-      }}>
-        {NAMES.map(name => (
-          <span key={name} className="marketplace-name">{name}</span>
-        ))}
+    <section className="markets-section">
+      <div className="container">
+        <p className="section-label">Markets</p>
+        <h2 className="section-title">
+          Four markets.{' '}
+          <span className="teal">50+ marketplaces.</span>
+        </h2>
+        <p className="section-sub">
+          We pick the right market for your product first — then expand.
+          Most brands start with Germany or UAE and add markets as revenue grows.
+        </p>
+
+        <div className="markets-grid">
+          {MARKETS.map(m => (
+            <div key={m.name} className="market-card">
+              <div className="market-flag">{m.flag}</div>
+              <div className="market-name">{m.name}</div>
+              <div className="market-sub">{m.sub}</div>
+              <div className="market-stat">{m.stat}</div>
+              <div className="market-stat-label">{m.statLabel}</div>
+              <div className="market-shops">
+                {m.shops.map(s => (
+                  <span key={s} className="market-shop">{s}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   )
 }

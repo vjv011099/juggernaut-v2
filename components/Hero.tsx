@@ -3,57 +3,54 @@ import Link from 'next/link'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 
 const MARKETS = [
-  { flag: '🇩🇪', name: 'Germany' },
-  { flag: '🇺🇸', name: 'USA' },
-  { flag: '🇬🇧', name: 'UK' },
-  { flag: '🇦🇪', name: 'UAE' },
+  { flag: '🇩🇪', name: 'Germany',        shops: 'Amazon.de · Otto · Zalando' },
+  { flag: '🇺🇸', name: 'United States',  shops: 'Amazon · Walmart · Target+' },
+  { flag: '🇦🇪', name: 'UAE',            shops: 'Noon · Amazon.ae · Namshi' },
+  { flag: '🇬🇧', name: 'United Kingdom', shops: 'Amazon.co.uk · ASOS · OnBuy' },
 ]
 
-const PLAN_ROWS = [
-  { label: '🇩🇪 Amazon Germany — revenue estimate', value: '₹2.8L – 4.1L / mo',  tag: 'High potential', color: 'green' },
-  { label: 'CE Certification (EU compliance)',      value: '6 – 8 weeks',           tag: 'Manageable',    color: 'teal'  },
-  { label: 'Total capital to first sale',           value: '₹14L – 18L',            tag: 'Low risk',      color: 'amber' },
-]
-
-const FLOW_STEPS = [
-  { emoji: '🇮🇳', label: 'Your brand' },
-  { emoji: '⚙️', label: 'Juggernaut' },
-  { emoji: '🌍', label: 'Global sales' },
+const PROOF = [
+  '90-day first sale guarantee',
+  'No foreign entity needed',
+  '50+ marketplaces covered',
 ]
 
 export default function Hero() {
   return (
-    <section className="hero-section hero-section--split">
-      <div className="hero-mesh" />
-      <div className="hero-grid" />
-      <div className="noise-overlay" />
+    <section className="hero-v2">
+      <div className="hero-v2-bg-glow" />
+      <div className="hero-v2-grid" />
 
-      <div className="hero-split-inner">
+      <div className="hero-v2-inner">
 
-        {/* ── Left column: copy ── */}
-        <div className="hero-left">
-          <div className="hero-badge">
-            <span className="hero-badge-dot" />
-            Accepting Indian D2C brands — Limited to 10 this cohort
+        {/* ── LEFT: Copy ── */}
+        <div className="hero-v2-left">
+          <div className="hero-v2-badge">
+            <span className="hero-v2-badge-dot" />
+            Limited to 10 Indian brands this cohort
           </div>
 
-          <h1 className="hero-headline hero-headline--left">
-            Your Indian brand.<br />
-            <span className="hero-highlight">Selling globally.</span>
-            <span className="hero-headline-dim">
-              We handle everything in between.
+          <h1 className="hero-v2-headline">
+            Sell your Indian brand
+            {' '}in{' '}
+            <span className="gradient-text">Germany,</span>
+            {' '}
+            <span className="gradient-text">USA, UAE</span>
+            {' '}&amp; UK.
+            <span className="line-dim">
+              Compliance, listings, logistics — all done for you.
             </span>
           </h1>
 
-          <p className="hero-sub hero-sub--left">
-            Amazon, Walmart, Noon, Otto and every major local marketplace
-            across Germany, UK, USA and UAE — compliance handled, AI-powered,
-            first sale guaranteed in 90 days.
+          <p className="hero-v2-sub">
+            Not just a listing page. Your brand on every major marketplace
+            with CE marking, VAT registration, AI-powered listings and
+            full account management — we do everything.
           </p>
 
-          <div className="hero-actions hero-actions--left">
+          <div className="hero-v2-actions">
             <Link href="#book-call" className="btn-primary">
-              Book Free Strategy Call
+              Get Your Free Expansion Plan
               <ArrowRight size={16} />
             </Link>
             <Link href="#how" className="btn-ghost--dark">
@@ -62,59 +59,41 @@ export default function Hero() {
             </Link>
           </div>
 
-          <div className="hero-markets hero-markets--left">
-            {MARKETS.map(m => (
-              <span key={m.name} className="hero-market-badge">
-                {m.flag} {m.name}
-              </span>
+          <div className="hero-v2-proof">
+            {PROOF.map(p => (
+              <div key={p} className="hero-v2-proof-item">
+                <span className="hero-v2-proof-check">✓</span>
+                {p}
+              </div>
             ))}
           </div>
         </div>
 
-        {/* ── Right column: visual ── */}
-        <div className="hero-right">
-          {/* India → Juggernaut → World flow */}
-          <div className="hero-flow">
-            {FLOW_STEPS.map((step, i) => (
-              <div key={step.label} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div className="hero-flow-node">
-                  <span className="hero-flow-emoji">{step.emoji}</span>
-                  <span className="hero-flow-label">{step.label}</span>
+        {/* ── RIGHT: Visual panel ── */}
+        <div className="hero-v2-right">
+          {/* Marketplace grid */}
+          <div className="hero-market-grid-card">
+            <div className="hero-mgc-label">Your brand, live on 50+ marketplaces across</div>
+            <div className="hero-mgc-grid">
+              {MARKETS.map(m => (
+                <div key={m.name} className="hero-mgc-item">
+                  <div className="hero-mgc-flag">{m.flag}</div>
+                  <div className="hero-mgc-market">{m.name}</div>
+                  <div className="hero-mgc-shops">{m.shops}</div>
                 </div>
-                {i < FLOW_STEPS.length - 1 && (
-                  <div className="hero-flow-arrow">→</div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* AI Expansion Plan card */}
-          <div className="hero-plan-card hero-plan-card--standalone">
-            <div className="hero-plan-header">
-              <div className="hero-plan-title">
-                <span className="hero-plan-pulse" />
-                AI Expansion Plan Preview
-              </div>
-              <span className="hero-plan-chip">Generated in &lt;24h</span>
-            </div>
-
-            {PLAN_ROWS.map(row => (
-              <div key={row.label} className="hero-plan-row">
-                <span className="hero-plan-label">{row.label}</span>
-                <span className="hero-plan-value">{row.value}</span>
-                <span className={`hero-plan-tag hero-plan-tag--${row.color}`}>{row.tag}</span>
-              </div>
-            ))}
-
-            <div className="hero-plan-footer">
-              Real numbers, tailored to your product and category — from your first call.
+              ))}
             </div>
           </div>
 
-          {/* Trust line */}
-          <p className="hero-trust">
-            90-day first sale guarantee · No foreign entity required
-          </p>
+          {/* Revenue estimate card */}
+          <div className="hero-revenue-card">
+            <div className="hero-revenue-icon">📈</div>
+            <div>
+              <div className="hero-revenue-label">Projected monthly revenue — Germany</div>
+              <div className="hero-revenue-value">₹2.8L – ₹4.1L / mo</div>
+              <div className="hero-revenue-sub">AI-calculated for your product &amp; category</div>
+            </div>
+          </div>
         </div>
 
       </div>

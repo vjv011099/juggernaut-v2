@@ -4,32 +4,32 @@ import { MessageSquare, Cpu, Rocket, LayoutDashboard } from 'lucide-react'
 
 const STEPS = [
   {
-    num: '01',
-    Icon: MessageSquare,
-    title: 'You Tell Us About Your Product',
-    body: 'Share your product details, existing listings, and where you dream of selling. No lengthy forms, no consultant jargon — just a 30-minute conversation.',
+    num: '01', Icon: MessageSquare,
+    title: 'Tell us about your product',
+    body: '30-minute call. Share your product, goals, and current revenue. No forms, no jargon — an honest conversation about whether we can help.',
     tag: 'One free call',
+    detail: 'We assess fit on call 1 and tell you honestly if it isn\'t right.',
   },
   {
-    num: '02',
-    Icon: Cpu,
-    title: 'We Generate Your Complete Expansion Plan',
-    body: 'Our AI analyses your product against 8+ global markets — compliance gaps, capital needed, inventory to start, and markets ranked by ROI. In under 24 hours.',
+    num: '02', Icon: Cpu,
+    title: 'We build your AI expansion plan',
+    body: 'Our AI analyses your SKUs across 8+ markets — demand, competition, compliance gaps, capital required, ROI ranked by market. Ready in under 24 hours.',
     tag: 'Under 24 hours',
+    detail: 'Germany, USA, UAE, UK — ranked by fastest return for your category.',
   },
   {
-    num: '03',
-    Icon: Rocket,
-    title: 'We Take Over the Execution',
-    body: 'Certifications, listings, logistics, compliance filings — our team handles everything end-to-end. You get marketplace credentials and updates, not homework.',
+    num: '03', Icon: Rocket,
+    title: 'We execute everything',
+    body: 'CE marking, VAT registration, FBA setup, native-language listings, PPC advertising, compliance filings — our team handles all of it.',
     tag: 'Done for you',
+    detail: 'You get marketplace credentials and weekly updates, not homework.',
   },
   {
-    num: '04',
-    Icon: LayoutDashboard,
-    title: 'You Track Everything in One Dashboard',
-    body: 'An AI-powered business health dashboard shows sales, compliance status, and market performance in real time. Ask our AI chatbot anything about your expansion.',
+    num: '04', Icon: LayoutDashboard,
+    title: 'You watch the revenue grow',
+    body: 'A live dashboard shows sales, ad performance, compliance status and revenue in INR and local currency. Ask our AI chatbot anything at any time.',
     tag: 'Always in control',
+    detail: 'First sale typically within 8–12 weeks of kickoff.',
   },
 ]
 
@@ -37,71 +37,44 @@ export default function HowItWorks() {
   const ref = useReveal()
 
   return (
-    <section className="section" id="how" style={{ background: 'var(--off-white)' }}>
+    <section className="hiw-section" id="how">
       <div className="container">
         <p className="section-label">The Process</p>
         <h2 className="section-title">
-          Four steps from{' '}
-          <span className="teal">your warehouse</span>{' '}
-          to the world.
+          Four steps from your warehouse{' '}
+          <span className="teal">to the world.</span>
         </h2>
         <p className="section-sub">
-          No guesswork. No months of planning. A clear path from where you are
-          to where you want to be.
+          No guesswork. No months of planning. A clear path with real numbers
+          from the very first call.
         </p>
 
-        <div ref={ref} style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 0,
-          marginTop: 64,
-          position: 'relative',
-        }} className="steps-grid">
-          <div className="steps-connector" style={{
-            position: 'absolute', top: 35, left: '12.5%', right: '12.5%',
-            height: 1,
-            background: 'linear-gradient(90deg, transparent, rgba(12,192,223,0.25) 20%, rgba(12,192,223,0.25) 80%, transparent)',
-            pointerEvents: 'none', zIndex: 0,
-          }} />
-
-          {STEPS.map(({ num, Icon, title, body, tag }) => (
-            <div key={num} className="reveal step-item" style={{ paddingRight: 28, position: 'relative', zIndex: 1 }}>
-              <div className="step-circle">
-                <Icon size={24} color="var(--teal)" strokeWidth={1.5} />
+        <div ref={ref} className="hiw-track" style={{ position: 'relative' }}>
+          <div className="hiw-connector" />
+          {STEPS.map(({ num, Icon, title, body, tag, detail }) => (
+            <div key={num} className="hiw-step reveal">
+              <div className="hiw-circle">
+                <Icon size={28} color="var(--teal)" strokeWidth={1.5} />
+                <div className="hiw-circle-num">{num}</div>
               </div>
 
-              <div style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 11, fontWeight: 700,
-                letterSpacing: '0.10em', textTransform: 'uppercase',
-                color: 'var(--teal-dark)',
-                marginBottom: 10,
-              }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.10em', textTransform: 'uppercase', color: 'var(--teal)', marginBottom: 10 }}>
                 Step {num}
               </div>
 
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 17, fontWeight: 600,
-                color: 'var(--text-dark)', marginBottom: 10, lineHeight: 1.3,
-              }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17, fontWeight: 700, color: 'var(--text-dark)', marginBottom: 10, lineHeight: 1.3 }}>
                 {title}
               </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text-muted)' }}>
+
+              <p style={{ fontSize: 14, lineHeight: 1.72, color: 'var(--text-muted)', marginBottom: 12 }}>
                 {body}
               </p>
 
-              <span style={{
-                display: 'inline-block', marginTop: 16,
-                fontSize: 11, fontWeight: 700,
-                letterSpacing: '0.06em', textTransform: 'uppercase',
-                color: 'var(--teal-dark)',
-                background: 'rgba(12,192,223,0.08)',
-                border: '1px solid rgba(12,192,223,0.15)',
-                borderRadius: 4, padding: '4px 10px',
-              }}>
-                {tag}
-              </span>
+              <p style={{ fontSize: 12, color: 'var(--text-dim)', lineHeight: 1.6, fontStyle: 'italic', marginBottom: 12 }}>
+                {detail}
+              </p>
+
+              <span className="hiw-tag">{tag}</span>
             </div>
           ))}
         </div>

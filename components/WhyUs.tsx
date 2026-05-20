@@ -1,132 +1,129 @@
 'use client'
-import { useReveal } from '@/lib/useReveal'
-import { Zap, MapPin, TrendingUp, Package } from 'lucide-react'
 
-const REASONS = [
-  {
-    Icon: Zap,
-    title: 'AI infrastructure — not an agency',
-    body: 'Our AI handles market intelligence, listing optimisation, pricing and compliance monitoring automatically. What would take an agency months and lakhs of rupees, the platform does continuously.',
-  },
-  {
-    Icon: MapPin,
-    title: 'On the ground in Germany',
-    body: "Our co-founder is based in Düsseldorf. We don't just know European markets from a report — we operate in them. Local relationships, local knowledge, real presence.",
-  },
-  {
-    Icon: TrendingUp,
-    title: 'You pay when you earn',
-    body: 'Performance model starts at 4% of revenue we generate — zero if we generate zero. Retainer model is fixed and tied to the markets you actually enter. No bloated agency retainer.',
-  },
-  {
-    Icon: Package,
-    title: 'Built around Indian supply chains',
-    body: 'Every export regulation, FSSAI certificate, BIS requirement and customs nuance — our AI knows the Indian side as well as the international side. No translation layer required.',
-  },
+const COMPLIANCE_ITEMS = [
+  { icon: '🇪🇺', name: 'CE Marking (EU)',         status: 'done',   label: 'Complete' },
+  { icon: '🛡️',  name: 'GPSR — Responsible Person', status: 'done',   label: 'Complete' },
+  { icon: '🇩🇪', name: 'German VAT Registration',   status: 'prog',   label: 'In progress' },
+  { icon: '🇺🇸', name: 'FDA Facility Registration',  status: 'needed', label: 'Next market' },
+  { icon: '🇦🇪', name: 'HALAL Certification (UAE)',  status: 'needed', label: 'Queued' },
 ]
 
-const COMPARISON = [
-  { feature: 'Expansion plan ready',   jg: '<24 hours',             trad: '4 – 6 months' },
-  { feature: 'Cost to get started',    jg: 'Small onboarding fee',  trad: '₹3L – 8L retainer' },
-  { feature: 'Market intelligence',    jg: 'AI — continuous',       trad: 'Generic reports' },
-  { feature: 'Listing optimisation',   jg: 'AI — automated',        trad: 'Manual, infrequent' },
-  { feature: 'On-ground presence',     jg: 'Düsseldorf office',       trad: 'Remote only' },
+const DASHBOARD_ROWS = [
+  { key: '🇩🇪 Amazon.de — Last 30 days', val: '₹3.2L', badge: '+18%', color: 'g' },
+  { key: '🇦🇪 Noon UAE — Last 30 days',  val: '₹1.1L', badge: '+41%', color: 'g' },
+  { key: 'Ad spend (all markets)',        val: '₹28K',  badge: 'ROAS 4.2x', color: 't' },
+  { key: 'Open compliance tasks',         val: '0',     badge: 'All clear', color: 't' },
+]
+
+const DIFF_ROWS = [
+  { feat: 'Local compliance', jg: 'Handled end-to-end', them: 'Your problem' },
+  { feat: 'Native language listings', jg: 'German, Arabic, English', them: 'English only' },
+  { feat: 'FBA logistics', jg: 'Set up & managed', them: 'DIY' },
+  { feat: 'PPC advertising', jg: 'Managed by us', them: 'Not included' },
+  { feat: 'Fee if no sales', jg: 'Zero', them: 'Retainer still due' },
 ]
 
 export default function WhyUs() {
-  const ref = useReveal()
-
   return (
-    <section className="section" id="why" style={{ background: 'var(--white)' }}>
-      <div className="container">
-        <div style={{
-          display: 'grid', gridTemplateColumns: '1fr 1fr',
-          gap: 80, alignItems: 'start',
-        }} className="why-grid">
+    <section className="features-section">
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <p className="section-label section-label--dark">Why Juggernaut Global</p>
+        <h2 className="section-title section-title--light">
+          Everything Amazon Global Selling{' '}
+          <span className="teal">doesn&apos;t give you.</span>
+        </h2>
+        <p className="section-sub section-sub--light">
+          A listing page is 5% of the work. We handle the other 95%.
+        </p>
 
-          {/* Left */}
-          <div>
-            <p className="section-label">Why Juggernaut Global</p>
-            <h2 className="section-title">
-              Not an agency. Not a SaaS tool.{' '}
-              <span className="teal">AI infrastructure built for your expansion.</span>
-            </h2>
-            <p className="section-sub">
-              Traditional agencies charge lakhs to do things manually. Generic SaaS tools give you
-              data but no execution. We built the infrastructure that makes both obsolete.
-            </p>
+        <div className="features-grid">
 
-            <div ref={ref} style={{ marginTop: 40, display: 'flex', flexDirection: 'column' }}>
-              {REASONS.map(({ Icon, title, body }, i) => (
-                <div key={title} className="reveal" style={{
-                  display: 'flex', gap: 18, padding: '24px 0',
-                  borderBottom: '1px solid var(--border-light)',
-                  ...(i === 0 ? { paddingTop: 0 } : {}),
-                }}>
-                  <div style={{
-                    width: 34, height: 34, borderRadius: 8,
-                    background: 'var(--teal-glow)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    flexShrink: 0, color: 'var(--teal-dark)',
-                  }}>
-                    <Icon size={17} strokeWidth={1.75} />
+          {/* Live Revenue Dashboard */}
+          <div className="feature-card">
+            <div className="feature-card-header">
+              <div className="feature-card-tag">📊 Live Dashboard</div>
+              <h3 className="feature-card-title">Revenue in INR &amp; local currency</h3>
+              <p className="feature-card-body">See exactly what each market is earning — updated daily, broken down by marketplace, ad spend, and net margin.</p>
+            </div>
+            <div className="feature-card-visual">
+              <div className="mini-dashboard">
+                <div className="mini-dash-bar">
+                  <div className="mini-dash-dot mini-dash-dot--r" />
+                  <div className="mini-dash-dot mini-dash-dot--y" />
+                  <div className="mini-dash-dot mini-dash-dot--g" />
+                  <span className="mini-dash-title">Juggernaut Dashboard — Live</span>
+                </div>
+                <div className="mini-dash-body">
+                  {DASHBOARD_ROWS.map(r => (
+                    <div key={r.key} className="mini-dash-row">
+                      <span className="mini-dash-key">{r.key}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span className="mini-dash-val">{r.val}</span>
+                        <span className={`mini-dash-badge mini-dash-badge--${r.color}`}>{r.badge}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Compliance Tracker */}
+          <div className="feature-card">
+            <div className="feature-card-header">
+              <div className="feature-card-tag">✅ Compliance Tracker</div>
+              <h3 className="feature-card-title">We handle every certification</h3>
+              <p className="feature-card-body">CE marking, GPSR, VAT, FDA, HALAL — tracked and filed by our team. You never chase paperwork in a foreign language.</p>
+            </div>
+            <div className="feature-card-visual">
+              <div className="compliance-list">
+                {COMPLIANCE_ITEMS.map(item => (
+                  <div key={item.name} className="compliance-item">
+                    <span className="compliance-icon">{item.icon}</span>
+                    <span className="compliance-name">{item.name}</span>
+                    <span className={`compliance-status compliance-status--${item.status}`}>{item.label}</span>
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Comparison table — full width */}
+          <div className="feature-card feature-card--wide">
+            <div className="feature-card-header">
+              <div className="feature-card-tag">⚔️ Head to Head</div>
+              <h3 className="feature-card-title">Juggernaut Global vs. doing it yourself</h3>
+              <p className="feature-card-body">Amazon Global Selling gives you access. We give you results.</p>
+            </div>
+            <div className="feature-card-visual">
+              <div className="comparison-card">
+                <div className="comparison-glow" />
+                <div className="comparison-header">
+                  <span className="comparison-col-head comparison-col-head--dim">Feature</span>
+                  <span className="comparison-col-head comparison-col-head--jg">✦ Juggernaut Global</span>
+                  <span className="comparison-col-head comparison-col-head--trad">Amazon Global Selling alone</span>
+                </div>
+                {DIFF_ROWS.map(r => (
+                  <div key={r.feat} className="comparison-row">
+                    <span className="comparison-feature">{r.feat}</span>
+                    <span className="comparison-jg">
+                      <span className="comparison-jg-check">✓</span>
+                      {r.jg}
+                    </span>
+                    <span className="comparison-trad">{r.them}</span>
+                  </div>
+                ))}
+                <div className="comparison-location">
+                  <div className="comparison-location-icon">📍</div>
                   <div>
-                    <h4 style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: 16, fontWeight: 600,
-                      color: 'var(--text-dark)', marginBottom: 5,
-                    }}>
-                      {title}
-                    </h4>
-                    <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--text-muted)' }}>
-                      {body}
-                    </p>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'white', marginBottom: 3 }}>Physical presence in Germany</div>
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.38)', lineHeight: 1.5 }}>Our team is based in Düsseldorf — Europe's largest e-commerce market. No remote guessing. Real ground-level knowledge.</div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right — comparison table */}
-          <div className="comparison-card">
-            <div className="comparison-glow" />
-
-            <div className="comparison-header">
-              <span className="comparison-col-head comparison-col-head--dim">What you need</span>
-              <span className="comparison-col-head comparison-col-head--jg">Juggernaut Global</span>
-              <span className="comparison-col-head comparison-col-head--trad">Traditional agency</span>
-            </div>
-
-            {COMPARISON.map(({ feature, jg, trad }) => (
-              <div key={feature} className="comparison-row">
-                <span className="comparison-feature">{feature}</span>
-                <span className="comparison-jg">
-                  <span className="comparison-jg-check">✓</span>
-                  {jg}
-                </span>
-                <span className="comparison-trad">{trad}</span>
-              </div>
-            ))}
-
-            <div className="comparison-location">
-              <div className="comparison-location-icon">
-                <MapPin size={16} strokeWidth={1.5} />
-              </div>
-              <div>
-                <div style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 13, fontWeight: 600, color: 'white', marginBottom: 4,
-                }}>
-                  AI + ground presence in Germany
-                </div>
-                <p style={{ fontSize: 12, lineHeight: 1.6, color: 'rgba(255,255,255,0.42)' }}>
-                  The platform runs continuously. Our Düsseldorf co-founder handles what AI
-                  can't — local relationships, compliance filings, partner negotiations.
-                </p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
