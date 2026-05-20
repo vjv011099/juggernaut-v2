@@ -345,7 +345,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ════════════════════════════════════════
    PROBLEM SECTION
    ════════════════════════════════════════ */
-.problem-section { background: var(--off-white); padding: 96px 6vw; }
+.problem-section { background: var(--navy); padding: 96px 6vw; }
 .problem-grid {
   max-width: 1200px; margin: 52px auto 0;
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;

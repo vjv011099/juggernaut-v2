@@ -27,12 +27,12 @@ export default function WhyUs() {
   return (
     <section className="features-section">
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <p className="section-label section-label--dark">Why Juggernaut Global</p>
-        <h2 className="section-title section-title--light">
+        <p className="section-label">Why Juggernaut Global</p>
+        <h2 className="section-title">
           Everything Amazon Global Selling{' '}
           <span className="teal">doesn&apos;t give you.</span>
         </h2>
-        <p className="section-sub section-sub--light">
+        <p className="section-sub">
           A listing page is 5% of the work. We handle the other 95%.
         </p>
 

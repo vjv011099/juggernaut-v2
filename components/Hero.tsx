@@ -31,14 +31,11 @@ export default function Hero() {
           </div>
 
           <h1 className="hero-v2-headline">
-            Sell your Indian brand
-            {' '}in{' '}
-            <span className="gradient-text">Germany,</span>
-            {' '}
-            <span className="gradient-text">USA, UAE</span>
-            {' '}&amp; UK.
+            Your Indian brand,
+            <br />
+            <span className="gradient-text">selling globally.</span>
             <span className="line-dim">
-              Compliance, listings, logistics — all done for you.
+              Germany · USA · UAE · UK — compliance, listings and logistics done for you.
             </span>
           </h1>
 
