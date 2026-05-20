@@ -1,12 +1,12 @@
 'use client'
 import Link from 'next/link'
-import { ArrowRight, ChevronDown } from 'lucide-react'
+import { ArrowRight, ChevronDown, TrendingUp } from 'lucide-react'
 
 const MARKETS = [
-  { flag: '🇩🇪', name: 'Germany',        shops: 'Amazon.de · Otto · Zalando' },
-  { flag: '🇺🇸', name: 'United States',  shops: 'Amazon · Walmart · Target+' },
-  { flag: '🇦🇪', name: 'UAE',            shops: 'Noon · Amazon.ae · Namshi' },
-  { flag: '🇬🇧', name: 'United Kingdom', shops: 'Amazon.co.uk · ASOS · OnBuy' },
+  { code: 'DE', name: 'Germany',        shops: 'Amazon.de · Otto · Zalando' },
+  { code: 'US', name: 'United States',  shops: 'Amazon · Walmart · Target+' },
+  { code: 'AE', name: 'UAE',            shops: 'Noon · Amazon.ae · Namshi' },
+  { code: 'GB', name: 'United Kingdom', shops: 'Amazon.co.uk · ASOS · OnBuy' },
 ]
 
 const PROOF = [
@@ -14,6 +14,21 @@ const PROOF = [
   'No foreign entity needed',
   '50+ marketplaces covered',
 ]
+
+function CountryBadge({ code }: { code: string }) {
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+      width: 36, height: 24, borderRadius: 4,
+      background: 'rgba(12,192,223,0.08)', border: '1px solid rgba(12,192,223,0.18)',
+      fontSize: 10, fontWeight: 800, letterSpacing: '0.06em',
+      color: 'var(--teal-dark)', fontFamily: 'var(--font-display)',
+      flexShrink: 0,
+    }}>
+      {code}
+    </span>
+  )
+}
 
 export default function Hero() {
   return (
@@ -74,7 +89,7 @@ export default function Hero() {
             <div className="hero-mgc-grid">
               {MARKETS.map(m => (
                 <div key={m.name} className="hero-mgc-item">
-                  <div className="hero-mgc-flag">{m.flag}</div>
+                  <CountryBadge code={m.code} />
                   <div className="hero-mgc-market">{m.name}</div>
                   <div className="hero-mgc-shops">{m.shops}</div>
                 </div>
@@ -84,7 +99,9 @@ export default function Hero() {
 
           {/* Revenue estimate card */}
           <div className="hero-revenue-card">
-            <div className="hero-revenue-icon">📈</div>
+            <div className="hero-revenue-icon">
+              <TrendingUp size={22} color="var(--teal-dark)" strokeWidth={2} />
+            </div>
             <div>
               <div className="hero-revenue-label">Projected monthly revenue — Germany</div>
               <div className="hero-revenue-value">₹2.8L – ₹4.1L / mo</div>

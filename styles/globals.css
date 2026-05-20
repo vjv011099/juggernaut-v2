@@ -65,7 +65,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--text-dark); max-width: 720px;
 }
 .section-title--light { color: #fff; }
-.section-title .teal { color: var(--teal-dark); }
+.section-title .teal        { color: var(--teal-dark); }
 .section-title .teal--bright { color: var(--teal); }
 
 .section-sub {
@@ -359,7 +359,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .problem-card:hover { border-color: rgba(12,192,223,0.25); box-shadow: 0 12px 48px rgba(0,0,0,0.07); transform: translateY(-4px); }
 .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #ff6b6b, #ffa94d); opacity: 0.7; }
 .problem-card--solved::before { background: linear-gradient(90deg, var(--teal), #00e5ff); opacity: 0.8; }
-.problem-emoji { font-size: 32px; margin-bottom: 16px; }
+.problem-icon-wrap {
+  width: 52px; height: 52px; border-radius: 14px; margin-bottom: 20px;
+  background: rgba(12,192,223,0.08); border: 1px solid rgba(12,192,223,0.18);
+  display: flex; align-items: center; justify-content: center;
+}
 .problem-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
 .problem-body  { font-size: 14px; line-height: 1.72; color: var(--text-muted); }
 .problem-solve {
@@ -497,7 +501,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .market-card:hover { border-color: rgba(12,192,223,0.28); box-shadow: 0 12px 48px rgba(0,0,0,0.08); transform: translateY(-4px); }
 .market-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--teal), transparent); transform: scaleX(0); transition: transform 0.3s; }
 .market-card:hover::after { transform: scaleX(1); }
-.market-flag       { font-size: 36px; margin-bottom: 14px; }
+.market-code-badge {
+  display: inline-flex; align-items: 'center'; justify-content: center;
+  padding: 4px 10px; border-radius: 6px; margin-bottom: 16px;
+  background: rgba(12,192,223,0.08); border: 1px solid rgba(12,192,223,0.18);
+  font-family: var(--font-display); font-size: 13px; font-weight: 800;
+  letter-spacing: 0.08em; color: var(--teal-dark);
+}
 .market-name       { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 4px; }
 .market-sub        { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 18px; }
 .market-stat       { font-family: var(--font-display); font-size: 28px; font-weight: 900; color: var(--teal-dark); letter-spacing: -0.04em; margin-bottom: 2px; }
