@@ -9,7 +9,8 @@ const PROMISES = [
   'No agency jargon, ever',
 ]
 
-const WHATSAPP_NUMBER = '+919876543210' // Replace with actual WhatsApp number
+const WEB3FORMS_KEY = 'e7c8df0a-d97b-441f-8c99-7ad4f2011782'
+const WHATSAPP_NUMBER = '+919898202584'
 const WHATSAPP_MSG = encodeURIComponent(
   "Hi, I'd like to book a free strategy call with Juggernaut Global to discuss taking my D2C brand international."
 )
@@ -20,15 +21,37 @@ export default function BookingCTA() {
   const [brand, setBrand]         = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading]     = useState(false)
+  const [error, setError]         = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name || !email || !brand) return
     setLoading(true)
-    // TODO: replace with Calendly embed or form API (e.g. Formspree / your backend)
-    await new Promise(r => setTimeout(r, 600))
-    setLoading(false)
-    setSubmitted(true)
+    setError('')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New strategy call request — ${name}`,
+          name,
+          email,
+          brand,
+          from_page: 'navasetu.in',
+        }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSubmitted(true)
+      } else {
+        setError('Something went wrong. Please email us directly at hello@thejuggernautglobal.com')
+      }
+    } catch {
+      setError('Something went wrong. Please email us directly at hello@thejuggernautglobal.com')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -146,6 +169,9 @@ export default function BookingCTA() {
                 onFocus={e => (e.currentTarget.style.borderColor = 'var(--teal)')}
                 onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)')}
               />
+              {error && (
+                <p style={{ fontSize: 13, color: '#f87171', textAlign: 'center' }}>{error}</p>
+              )}
               <button
                 type="submit"
                 className="btn-primary booking-submit"
