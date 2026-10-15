@@ -12,6 +12,10 @@ import BlogSection from '@/components/BlogSection'
 import FAQ from '@/components/FAQ'
 import BookingCTA from '@/components/BookingCTA'
 import SchemaOrg from '@/components/SchemaOrg'
+import { getPublishedPosts, toCard } from '@/lib/blogData'
+
+// Re-check hourly so scheduled blog posts appear on their publish date.
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Juggernaut Global — AI-Powered Cross-Border E-Commerce for Indian D2C Brands',
@@ -32,7 +36,7 @@ export default function HomePage() {
       <Marketplaces />
       <Founders />
       <Pricing />
-      <BlogSection />
+      <BlogSection posts={getPublishedPosts().slice(0, 3).map(toCard)} />
       <FAQ />
       <BookingCTA />
     </>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { BLOG_POSTS } from '@/lib/blogData'
+import { getPublishedPosts } from '@/lib/blogData'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -9,7 +9,11 @@ export const metadata: Metadata = {
     'Practical guides on compliance, markets, capital planning, and everything Indian D2C founders need to sell globally.',
 }
 
+// Re-check hourly so scheduled posts appear on their publish date.
+export const revalidate = 3600
+
 export default function BlogPage() {
+  const posts = getPublishedPosts()
   return (
     <div style={{ paddingTop: 68 }}>
       <div style={{
@@ -45,7 +49,7 @@ export default function BlogPage() {
           maxWidth: 1160, margin: '0 auto',
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24,
         }} className="blog-page-grid">
-          {BLOG_POSTS.map(post => (
+          {posts.map(post => (
             <Link key={post.slug} href={`/blog/${post.slug}`}
               className="blog-card"
               style={{

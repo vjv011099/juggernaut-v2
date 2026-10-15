@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next'
-import { BLOG_POSTS } from '@/lib/blogData'
+import { getPublishedPosts } from '@/lib/blogData'
+
+export const revalidate = 3600
 
 const BASE = 'https://thejuggernautglobal.com'
 
@@ -21,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/terms`,             lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3 },
   ]
 
-  const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map(post => ({
+  const blogRoutes: MetadataRoute.Sitemap = getPublishedPosts().map(post => ({
     url: `${BASE}/blog/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly',

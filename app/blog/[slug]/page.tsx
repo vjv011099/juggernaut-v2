@@ -2,7 +2,10 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, ArrowRight } from 'lucide-react'
-import { BLOG_POSTS } from '@/lib/blogData'
+import { getPublishedPosts } from '@/lib/blogData'
+
+// Re-check hourly so scheduled posts go live on their publish date.
+export const revalidate = 3600
 
 function markdownToHtml(md: string): string {
   const lines = md.split('\n')
@@ -47,12 +50,12 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map(p => ({ slug: p.slug }))
+  return getPublishedPosts().map(p => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const post = BLOG_POSTS.find(p => p.slug === slug)
+  const post = getPublishedPosts().find(p => p.slug === slug)
   if (!post) return {}
   return {
     title: post.title,
@@ -68,10 +71,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const post = BLOG_POSTS.find(p => p.slug === slug)
+  const post = getPublishedPosts().find(p => p.slug === slug)
   if (!post) notFound()
 
-  const others = BLOG_POSTS.filter(p => p.slug !== slug)
+  const others = getPublishedPosts().filter(p => p.slug !== slug).slice(0, 3)
 
   return (
     <div style={{ paddingTop: 68 }}>

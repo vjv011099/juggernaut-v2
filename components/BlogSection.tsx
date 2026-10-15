@@ -2,12 +2,12 @@
 import Link from 'next/link'
 import { useReveal } from '@/lib/useReveal'
 import { ArrowRight, Calendar, Clock } from 'lucide-react'
-import { BLOG_POSTS } from '@/lib/blogData'
+import type { BlogCard } from '@/lib/blogData'
+import { getBlogIcon } from '@/lib/blogIcons'
 
-export { BLOG_POSTS }
-
-export default function BlogSection() {
+export default function BlogSection({ posts }: { posts: BlogCard[] }) {
   const ref = useReveal()
+  if (posts.length === 0) return null
 
   return (
     <section className="section" id="blog" style={{ background: 'white' }}>
@@ -34,7 +34,9 @@ export default function BlogSection() {
           gridTemplateColumns: '1.35fr 1fr 1fr',
           gap: 24,
         }} className="blog-grid">
-          {BLOG_POSTS.map((post, i) => (
+          {posts.map((post, i) => {
+            const Icon = getBlogIcon(post.icon)
+            return (
             <Link key={post.slug} href={`/blog/${post.slug}`}
               className="reveal blog-card"
               style={{
@@ -63,7 +65,7 @@ export default function BlogSection() {
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'var(--teal)', position: 'relative', zIndex: 1,
                 }}>
-                  <post.Icon size={26} strokeWidth={1.5} />
+                  <Icon size={26} strokeWidth={1.5} />
                 </div>
               </div>
 
@@ -116,7 +118,8 @@ export default function BlogSection() {
                 </div>
               </div>
             </Link>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
