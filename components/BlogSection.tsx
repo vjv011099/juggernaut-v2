@@ -55,18 +55,26 @@ export default function BlogSection({ posts }: { posts: BlogCard[] }) {
                 position: 'relative',
                 overflow: 'hidden',
               }}>
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(135deg, rgba(12,192,223,0.10), transparent)',
-                }} />
-                <div style={{
-                  width: 56, height: 56, borderRadius: 14,
-                  background: 'rgba(12,192,223,0.12)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--teal)', position: 'relative', zIndex: 1,
-                }}>
-                  <Icon size={26} strokeWidth={1.5} />
-                </div>
+                {post.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={post.image} alt={post.imageAlt ?? post.title} loading="lazy"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <>
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: 'linear-gradient(135deg, rgba(12,192,223,0.10), transparent)',
+                    }} />
+                    <div style={{
+                      width: 56, height: 56, borderRadius: 14,
+                      background: 'rgba(12,192,223,0.12)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--teal)', position: 'relative', zIndex: 1,
+                    }}>
+                      <Icon size={26} strokeWidth={1.5} />
+                    </div>
+                  </>
+                )}
               </div>
 
               <div style={{

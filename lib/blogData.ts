@@ -22,6 +22,9 @@ export interface BlogPostData {
   dateLabel: string
   readTime: string
   content: string
+  /** Optional cover image path under /public, e.g. "/blog/my-post.jpg" (16:9, ~1600×900) */
+  image?: string
+  imageAlt?: string
 }
 
 export interface BlogPost extends BlogPostData {

@@ -60,18 +60,24 @@ export default function BlogPage() {
               }}
             >
               <div style={{
-                height: 160,
+                height: 160, position: 'relative', overflow: 'hidden',
                 background: 'linear-gradient(135deg, var(--navy-3), var(--navy-4))',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <div style={{
-                  width: 48, height: 48, borderRadius: 12,
-                  background: 'rgba(12,192,223,0.12)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--teal)',
-                }}>
-                  <post.Icon size={22} strokeWidth={1.5} />
-                </div>
+                {post.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={post.image} alt={post.imageAlt ?? post.title} loading="lazy"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div style={{
+                    width: 48, height: 48, borderRadius: 12,
+                    background: 'rgba(12,192,223,0.12)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'var(--teal)',
+                  }}>
+                    <post.Icon size={22} strokeWidth={1.5} />
+                  </div>
+                )}
               </div>
               <div style={{ padding: 24, flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <span style={{

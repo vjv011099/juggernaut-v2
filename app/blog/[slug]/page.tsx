@@ -65,6 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
+      ...(post.image ? { images: [{ url: post.image, alt: post.imageAlt ?? post.title }] } : {}),
     },
   }
 }
@@ -138,6 +139,14 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Article body */}
       <div style={{ background: 'var(--white)', padding: '64px 6vw' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
+          {post.image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={post.image} alt={post.imageAlt ?? post.title}
+              style={{
+                width: '100%', aspectRatio: '16 / 9', objectFit: 'cover',
+                borderRadius: 'var(--radius-lg)', marginBottom: 40, display: 'block',
+              }} />
+          )}
           <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--text-muted)', marginBottom: 40 }}>
             {post.excerpt}
           </p>
