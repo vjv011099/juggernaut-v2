@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Blog — Global Expansion Guides for Indian D2C Brands',
   description:
     'Practical guides on compliance, markets, capital planning, and everything Indian D2C founders need to sell globally.',
+  alternates: { canonical: 'https://thejuggernautglobal.com/blog/' },
 }
 
 // Re-check hourly so scheduled posts appear on their publish date.

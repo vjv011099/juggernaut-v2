@@ -64,7 +64,6 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
-  alternates: { canonical: 'https://thejuggernautglobal.com' },
   verification: {
     // google: 'YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE', // add after GSC setup
   },

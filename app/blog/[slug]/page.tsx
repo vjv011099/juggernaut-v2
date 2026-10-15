@@ -3,47 +3,12 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, ArrowRight } from 'lucide-react'
 import { getPublishedPosts } from '@/lib/blogData'
+import { markdownToHtml, extractFaq } from '@/lib/blogMarkdown'
+
+const BASE = 'https://thejuggernautglobal.com'
 
 // Re-check hourly so scheduled posts go live on their publish date.
 export const revalidate = 3600
-
-function markdownToHtml(md: string): string {
-  const lines = md.split('\n')
-  const out: string[] = []
-  let i = 0
-  while (i < lines.length) {
-    const line = lines[i]
-    if (line.startsWith('## ')) { out.push(`<h2>${fmt(line.slice(3))}</h2>`); i++; continue }
-    if (line.startsWith('### ')) { out.push(`<h3>${fmt(line.slice(4))}</h3>`); i++; continue }
-    if (line.startsWith('| ')) {
-      const rows: string[] = []
-      while (i < lines.length && lines[i].startsWith('|')) {
-        if (!lines[i].match(/^[\|\s\-]+$/)) {
-          const cells = lines[i].split('|').filter(Boolean).map(c => `<td>${fmt(c.trim())}</td>`).join('')
-          rows.push(`<tr>${cells}</tr>`)
-        }
-        i++
-      }
-      out.push(`<table>${rows.join('')}</table>`); continue
-    }
-    if (line.startsWith('- ')) {
-      const items: string[] = []
-      while (i < lines.length && lines[i].startsWith('- ')) {
-        items.push(`<li>${fmt(lines[i].slice(2))}</li>`); i++
-      }
-      out.push(`<ul>${items.join('')}</ul>`); continue
-    }
-    if (line.trim() === '') { i++; continue }
-    out.push(`<p>${fmt(line)}</p>`); i++
-  }
-  return out.join('')
-}
-
-function fmt(s: string): string {
-  return s
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-}
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -60,11 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `${BASE}/blog/${post.slug}/` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
+      url: `${BASE}/blog/${post.slug}/`,
       ...(post.image ? { images: [{ url: post.image, alt: post.imageAlt ?? post.title }] } : {}),
     },
   }
@@ -76,9 +44,53 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound()
 
   const others = getPublishedPosts().filter(p => p.slug !== slug).slice(0, 3)
+  const url = `${BASE}/blog/${post.slug}/`
+  const faq = extractFaq(post.content)
+  const updatedLabel = post.updated && post.updated !== post.date
+    ? new Date(`${post.updated}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+    : null
+
+  const structuredData: object[] = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
+      dateModified: post.updated ?? post.date,
+      ...(post.image ? { image: `${BASE}${post.image}` } : {}),
+      author: { '@type': 'Organization', name: 'Juggernaut Global', url: BASE },
+      publisher: {
+        '@type': 'Organization', name: 'Juggernaut Global', url: BASE,
+        logo: { '@type': 'ImageObject', url: `${BASE}/logo.svg` },
+      },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+      articleSection: post.tag,
+      inLanguage: 'en',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: BASE },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog/` },
+        { '@type': 'ListItem', position: 3, name: post.title, item: url },
+      ],
+    },
+    ...(faq.length > 0 ? [{
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map(f => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }] : []),
+  ]
 
   return (
     <div style={{ paddingTop: 68 }}>
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       {/* Header */}
       <div style={{
         background: 'var(--navy)',
@@ -131,6 +143,7 @@ export default async function BlogPostPage({ params }: Props) {
               <Clock size={13} />
               {post.readTime}
             </span>
+            {updatedLabel && <span>Updated {updatedLabel}</span>}
             <span>By Juggernaut Global</span>
           </div>
         </div>

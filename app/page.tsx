@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   title: 'Juggernaut Global — AI-Powered Cross-Border E-Commerce for Indian D2C Brands',
   description:
     'Take your Indian D2C brand to Amazon, Walmart, Noon, Otto and 50+ local marketplaces across Germany, UK, USA and UAE. AI infrastructure built for you. First sale guaranteed in 90 days.',
+  alternates: { canonical: 'https://thejuggernautglobal.com' },
 }
 
 export default function HomePage() {
